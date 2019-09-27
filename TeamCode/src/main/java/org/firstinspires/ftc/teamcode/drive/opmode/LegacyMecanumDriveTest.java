@@ -14,10 +14,10 @@ import static java.lang.Math.sqrt;
 @TeleOp
 public class LegacyMecanumDriveTest extends LinearOpMode {
 
-    protected DcMotor fL;
-    protected DcMotor bL;
-    protected DcMotor fR;
-    protected DcMotor bR;
+    protected DcMotor leftFront;
+    protected DcMotor leftRear;
+    protected DcMotor rightFront;
+    protected DcMotor rightRear;
 
     double SCALE = 1;
 
@@ -25,16 +25,16 @@ public class LegacyMecanumDriveTest extends LinearOpMode {
 
         waitForStart();
 
-        fL = hardwareMap.dcMotor.get("leftFront");
-        fL.setDirection(DcMotor.Direction.REVERSE);
-        fL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        bL = hardwareMap.dcMotor.get("leftRear");
-        bL.setDirection(DcMotor.Direction.REVERSE);
-        bL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        fR = hardwareMap.dcMotor.get("rightFront");
-        fR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        bR = hardwareMap.dcMotor.get("rightRear");
-        bR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftFront = hardwareMap.dcMotor.get("leftFront");
+        leftFront.setDirection(DcMotor.Direction.REVERSE);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear = hardwareMap.dcMotor.get("leftRear");
+        leftRear.setDirection(DcMotor.Direction.REVERSE);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront = hardwareMap.dcMotor.get("rightFront");
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear = hardwareMap.dcMotor.get("rightRear");
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         while (opModeIsActive()) {
 
@@ -58,11 +58,17 @@ public class LegacyMecanumDriveTest extends LinearOpMode {
 //            telemetry.addData("maxPower: ", maxPower);                                                  //
             //
             //Sets the power for all the drive motors.                                                          //
-            fL.setPower(-(POWER * flPower / maxPower) / SCALE);                                                 //
-            bL.setPower(-(POWER * blPower / maxPower) / SCALE);                                                 //
-            fR.setPower(-(POWER * frPower / maxPower) / SCALE);                                                 //
-            bR.setPower(-(POWER * brPower / maxPower) / SCALE);                                                 //
+            leftFront.setPower(-(POWER * flPower / maxPower) / SCALE);                                                 //
+            leftRear.setPower(-(POWER * blPower / maxPower) / SCALE);                                                 //
+            rightFront.setPower(-(POWER * frPower / maxPower) / SCALE);                                                 //
+            rightRear.setPower(-(POWER * brPower / maxPower) / SCALE);                                                 //
             //Drive code :)///////////////////////////////////////////////////////////////////////////////////////
+
+            telemetry.addData("leftFront", leftFront.getCurrentPosition());
+            telemetry.addData("leftRear", leftRear.getCurrentPosition());
+            telemetry.addData("rightFront", rightFront.getCurrentPosition());
+            telemetry.addData("rightRear", rightRear.getCurrentPosition());
+            telemetry.update();
         }
     }
 
