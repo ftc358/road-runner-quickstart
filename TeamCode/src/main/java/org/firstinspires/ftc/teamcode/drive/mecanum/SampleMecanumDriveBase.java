@@ -44,7 +44,7 @@ public abstract class SampleMecanumDriveBase extends MecanumDrive {
         FOLLOW_TRAJECTORY
     }
 
-//    private FtcDashboard dashboard;
+    private FtcDashboard dashboard;
     private NanoClock clock;
 
     private Mode mode;
@@ -59,7 +59,7 @@ public abstract class SampleMecanumDriveBase extends MecanumDrive {
     public SampleMecanumDriveBase() {
         super(kV, kA, kStatic, TRACK_WIDTH);
 
-//        dashboard = FtcDashboard.getInstance();
+        dashboard = FtcDashboard.getInstance();
         clock = NanoClock.system();
 
         mode = Mode.IDLE;
@@ -185,7 +185,7 @@ public abstract class SampleMecanumDriveBase extends MecanumDrive {
             }
         }
 
-//        dashboard.sendTelemetryPacket(packet);
+        dashboard.sendTelemetryPacket(packet);
     }
 
     public void waitForIdle() {
