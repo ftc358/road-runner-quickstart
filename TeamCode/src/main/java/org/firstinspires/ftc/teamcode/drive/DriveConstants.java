@@ -32,7 +32,7 @@ public class DriveConstants {
      * convenience.
      */
     public static double WHEEL_RADIUS = 2;
-    public static double GEAR_RATIO = 1/20; // output (wheel) speed / input (motor) speed
+    public static double GEAR_RATIO = 32.0/16.0; // output (wheel) speed / input (motor) speed
     public static double TRACK_WIDTH = 16;
 
     /*
