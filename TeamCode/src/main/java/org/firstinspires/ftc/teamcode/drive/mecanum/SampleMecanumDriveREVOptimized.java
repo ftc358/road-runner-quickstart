@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
+import org.firstinspires.ftc.teamcode.drive.localizer.StandardTrackingWheelLocalizer;
 import org.firstinspires.ftc.teamcode.util.LynxModuleUtil;
 import org.firstinspires.ftc.teamcode.util.LynxOptimizedI2cFactory;
 import org.openftc.revextensions2.ExpansionHubEx;
@@ -39,7 +40,7 @@ public class SampleMecanumDriveREVOptimized extends SampleMecanumDriveBase {
         // TODO: adjust the names of the following hardware devices to match your configuration
         // for simplicity, we assume that the desired IMU and drive motors are on the same hub
         // if your motors are split between hubs, **you will need to add another bulk read**
-        hub = hardwareMap.get(ExpansionHubEx.class, "Hub1-358");
+        hub = hardwareMap.get(ExpansionHubEx.class, "358-Hub-2");
 
         imu = LynxOptimizedI2cFactory.createLynxEmbeddedImu(hub.getStandardModule(), 0);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -73,7 +74,7 @@ public class SampleMecanumDriveREVOptimized extends SampleMecanumDriveBase {
          setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDCoefficients(31.0, 11.0, 10.0));
 
         // TODO: if desired, use setLocalizer() to change the localization method
-        // for instance, setLocalizer(new ThreeTrackingWheelLocalizer(...));
+          setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap));
     }
 
     @Override
