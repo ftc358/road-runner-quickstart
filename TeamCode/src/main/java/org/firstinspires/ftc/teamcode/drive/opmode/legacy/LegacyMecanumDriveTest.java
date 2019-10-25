@@ -11,7 +11,7 @@ import static java.lang.Math.max;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
 
-@TeleOp
+@TeleOp(name = "LegacyMecanumDriveTest ", group = "LegacyTest")
 public class LegacyMecanumDriveTest extends LinearOpMode {
 
     protected DcMotor leftFront;
@@ -37,6 +37,7 @@ public class LegacyMecanumDriveTest extends LinearOpMode {
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         while (opModeIsActive()) {
+            double startTimestamp = System.currentTimeMillis();
 
             //Drive code :) //////////////////////////////////////////////////////////////////////////////////////
             //Defining drive, strafe, and rotation power.                                                       //
@@ -68,6 +69,7 @@ public class LegacyMecanumDriveTest extends LinearOpMode {
             telemetry.addData("leftRear", leftRear.getCurrentPosition());
             telemetry.addData("rightFront", rightFront.getCurrentPosition());
             telemetry.addData("rightRear", rightRear.getCurrentPosition());
+            telemetry.addData("cycle time", System.currentTimeMillis() - startTimestamp);
             telemetry.update();
         }
     }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.drive.opmode;
+package org.firstinspires.ftc.teamcode.drive.opmode.legacy;
 
 import android.graphics.Color;
 
@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp
-public class IntakeTest extends OpMode {
+@TeleOp(name = "Luke Intake Test", group = "LegacyTest")
+public class LukeIntakeTest extends OpMode {
     DcMotor motor1;
     DcMotor motor2;
     ColorSensor color;
