@@ -6,7 +6,10 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.localization.ThreeTrackingWheelLocalizer;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.openftc.revextensions2.RevBulkData;
 
 import java.util.Arrays;
 import java.util.List;
@@ -46,6 +49,7 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
         leftEncoder = hardwareMap.dcMotor.get("leftEncoder");
         rightEncoder = hardwareMap.dcMotor.get("rightEncoder");
         frontEncoder = hardwareMap.dcMotor.get("frontEncoder");
+        leftEncoder.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public static double encoderTicksToInches(int ticks) {
@@ -60,5 +64,20 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
                 encoderTicksToInches(rightEncoder.getCurrentPosition()),
                 encoderTicksToInches(frontEncoder.getCurrentPosition())
         );
+    }
+
+    @NonNull
+    public List<Integer> getWheelTicks() {
+        return Arrays.asList(
+                leftEncoder.getCurrentPosition(),
+                rightEncoder.getCurrentPosition(),
+                frontEncoder.getCurrentPosition()
+        );
+    }
+
+    public void resetEncoders() {
+        leftEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontEncoder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 }

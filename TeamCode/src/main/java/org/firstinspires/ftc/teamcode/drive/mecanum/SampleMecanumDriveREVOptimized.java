@@ -71,10 +71,10 @@ public class SampleMecanumDriveREVOptimized extends SampleMecanumDriveBase {
         leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // TODO: set the tuned coefficients from DriveVelocityPIDTuner if using RUN_USING_ENCODER
-         setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDCoefficients(31.0, 11.0, 10.0));
+         setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDCoefficients(20.0, 12.0, 8.0));
 
         // TODO: if desired, use setLocalizer() to change the localization method
-          setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap));
+         setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap));
     }
 
     @Override
