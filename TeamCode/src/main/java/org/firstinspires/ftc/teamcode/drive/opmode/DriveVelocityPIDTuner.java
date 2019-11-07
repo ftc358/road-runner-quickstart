@@ -19,7 +19,7 @@ import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.drive.mecanum.SampleMecanumDriveBase;
-import org.firstinspires.ftc.teamcode.drive.mecanum.SampleMecanumDriveREVOptimized;
+import org.firstinspires.ftc.teamcode.drive.mecanum.SampleMecanumDriveREV;
 
 import java.util.List;
 
@@ -133,7 +133,7 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
-        drive = new SampleMecanumDriveREVOptimized(hardwareMap);
+        drive = new SampleMecanumDriveREV(hardwareMap);
 
         addPidVariable();
 
@@ -167,24 +167,6 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
             double targetPower = kV * motionState.getV();
             drive.setDrivePower(new Pose2d(targetPower, 0, 0));
 
-<<<<<<< HEAD
-            List<Double> wheelPositions = drive.getWheelPositions();
-            if (lastWheelPositions != null) {
-                // compute velocities
-                List<Double> syntheticVelocities = new ArrayList<>();
-                for (int i = 0; i < wheelPositions.size(); i++) {
-                    syntheticVelocities.add((wheelPositions.get(i) - lastWheelPositions.get(i)) / dt);
-                }
-
-                // update telemetry
-                telemetry.addData("targetVelocity", motionState.getV());
-                for (int i = 0; i < syntheticVelocities.size(); i++) {
-                    telemetry.addData("coefs", drive.getPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER));
-                    telemetry.addData("velocity" + i, syntheticVelocities.get(i));
-                    telemetry.addData("error" + i, motionState.getV() - syntheticVelocities.get(i));
-                }
-                telemetry.update();
-=======
             List<Double> velocities = drive.getWheelVelocities();
 
             // update telemetry
@@ -192,7 +174,6 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
             for (int i = 0; i < velocities.size(); i++) {
                 telemetry.addData("velocity" + i, velocities.get(i));
                 telemetry.addData("error" + i, motionState.getV() - velocities.get(i));
->>>>>>> 7ecb2fe6209b80e5348e4d0de0cd07b36daa73d8
             }
             telemetry.update();
         }
