@@ -177,6 +177,7 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
                 // update telemetry
                 telemetry.addData("targetVelocity", motionState.getV());
                 for (int i = 0; i < syntheticVelocities.size(); i++) {
+                    telemetry.addData("coefs", drive.getPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER));
                     telemetry.addData("velocity" + i, syntheticVelocities.get(i));
                     telemetry.addData("error" + i, motionState.getV() - syntheticVelocities.get(i));
                 }
