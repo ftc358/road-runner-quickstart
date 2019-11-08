@@ -102,7 +102,7 @@ public class SampleMecanumDriveREVOptimized extends SampleMecanumDriveBase {
 
         List<Double> wheelPositions = new ArrayList<>();
         for (ExpansionHubMotor motor : motors) {
-            wheelPositions.add(encoderTicksToInches(bulkData.getMotorCurrentPosition(motor)));
+            wheelPositions.add(-encoderTicksToInches(bulkData.getMotorCurrentPosition(motor)));
         }
         return wheelPositions;
     }
