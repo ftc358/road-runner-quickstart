@@ -71,6 +71,8 @@ public class SampleMecanumDriveREVOptimized extends SampleMecanumDriveBase {
         // TODO: reverse any motors using DcMotor.setDirection()
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+//        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+//        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // TODO: if desired, use setLocalizer() to change the localization method
         setLocalizer(new StandardTrackingWheelLocalizer(hardwareMap));
@@ -102,7 +104,7 @@ public class SampleMecanumDriveREVOptimized extends SampleMecanumDriveBase {
 
         List<Double> wheelPositions = new ArrayList<>();
         for (ExpansionHubMotor motor : motors) {
-            wheelPositions.add(-encoderTicksToInches(bulkData.getMotorCurrentPosition(motor)));
+            wheelPositions.add(encoderTicksToInches(bulkData.getMotorCurrentPosition(motor)));
         }
         return wheelPositions;
     }
@@ -117,7 +119,7 @@ public class SampleMecanumDriveREVOptimized extends SampleMecanumDriveBase {
 
         List<Double> wheelVelocities = new ArrayList<>();
         for (ExpansionHubMotor motor : motors) {
-            wheelVelocities.add(-encoderTicksToInches(bulkData.getMotorVelocity(motor)));
+            wheelVelocities.add(encoderTicksToInches(bulkData.getMotorVelocity(motor)));
         }
         return wheelVelocities;
     }

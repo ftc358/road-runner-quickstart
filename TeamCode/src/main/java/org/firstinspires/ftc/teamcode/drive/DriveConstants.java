@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.drive;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.control.PIDCoefficients;
 import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints;
-import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
 import com.qualcomm.hardware.motors.NeveRest40Gearmotor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
@@ -35,7 +34,9 @@ public class DriveConstants {
      * MOTOR_VELO_PID with the tuned coefficients from DriveVelocityPIDTuner.
      */
     public static final boolean RUN_USING_ENCODER = true;
-    public static final PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(5.7,0.001,0.9);
+    //    public static final PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(5.7,0.001,0.9);
+    //    public static final PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(30, 6.5, 0.1);
+    public static final PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(25, 10, 0.1);
 
     /*
      * These are physical constants that can be determined from your robot (including the track
@@ -46,8 +47,9 @@ public class DriveConstants {
      * convenience. Make sure to exclude any gear ratio included in MOTOR_CONFIG from GEAR_RATIO.
      */
     public static double WHEEL_RADIUS = 2;
-    public static double GEAR_RATIO = 1.0/1.0; // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 18.2;
+    public static double GEAR_RATIO = 1.0 / 1.0; // output (wheel) speed / input (motor) speed
+    public static double TRACK_WIDTH = 14;
+    // measured value 18.46
 
     /*
      * These are the feedforward parameters used to model the drive motor behavior. If you are using
@@ -68,7 +70,7 @@ public class DriveConstants {
      * forces acceleration-limited profiling).
      */
     public static DriveConstraints BASE_CONSTRAINTS = new DriveConstraints(
-            30.0, 30.0, 0.0,
+            25.0, 25.0, 100.0,
             Math.toRadians(180.0), Math.toRadians(180.0), 0.0
     );
 
