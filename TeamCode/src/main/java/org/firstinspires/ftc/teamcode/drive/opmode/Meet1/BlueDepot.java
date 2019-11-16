@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.drive.opmode.Meet1;
 
-import android.graphics.Bitmap;
-
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
@@ -32,12 +30,16 @@ import java.util.concurrent.Executors;
 public class BlueDepot extends LinearOpMode {
 
     // configurables
-
+    //TODO: tune
     public static double getStoneY = 50;
 
     public static double stone0X = -69;
     public static double stone1X = -61;
     public static double stone2X = -67.168;
+
+    public static double retractY = 5;
+
+    public static double deliverX = 10;
 
     public static double startX = -41.32;
     public static double startY = 63.1;
@@ -119,8 +121,7 @@ public class BlueDepot extends LinearOpMode {
 //                                    .strafeRight(13)
                                     .build()
                     );
-                    rearGrabber.setPosition(1.0);
-                    Thread.sleep(1000);
+                    getStone();
                     break;
                 case 1:
                     drive.followTrajectorySync(
@@ -131,8 +132,7 @@ public class BlueDepot extends LinearOpMode {
 //                                    .strafeRight(13)
                                     .build()
                     );
-                    rearGrabber.setPosition(1.0);
-                    Thread.sleep(1000);
+                    getStone();
                     break;
                 case 2:
                     drive.followTrajectorySync(
@@ -143,8 +143,7 @@ public class BlueDepot extends LinearOpMode {
 //                                    .strafeRight(13)
                                     .build()
                     );
-                    frontGrabber.setPosition(0);
-                    Thread.sleep(1000);
+                    getStone();
                     break;
             }
 
@@ -153,8 +152,8 @@ public class BlueDepot extends LinearOpMode {
             drive.followTrajectorySync(
                     drive.trajectoryBuilder()
 //                            .splineTo(new Pose2d(10, 55, 0), new ConstantInterpolator(0))
-                            .strafeLeft(5)
-                            .lineTo(new Vector2d(10, getStoneY + 5))
+                            .strafeLeft(retractY)
+                            .lineTo(new Vector2d(deliverX, getStoneY + retractY))
                             .build()
             );
 
@@ -166,7 +165,7 @@ public class BlueDepot extends LinearOpMode {
                 case 0:
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
-                                    .lineTo(new Vector2d(stone0X + 24, getStoneY + 5))
+                                    .lineTo(new Vector2d(stone0X + 24, getStoneY + retractY))
                                     .strafeTo(new Vector2d(stone0X + 24, getStoneY))
                                     .build()
                     );
@@ -178,7 +177,7 @@ public class BlueDepot extends LinearOpMode {
                 case 1:
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
-                                    .lineTo(new Vector2d(stone1X + 24, getStoneY + 5))
+                                    .lineTo(new Vector2d(stone1X + 24, getStoneY + retractY))
                                     .strafeTo(new Vector2d(stone1X + 24, getStoneY))
                                     .build()
                     );
@@ -190,7 +189,7 @@ public class BlueDepot extends LinearOpMode {
                 case 2:
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
-                                    .lineTo(new Vector2d(stone2X + 24, getStoneY + 5))
+                                    .lineTo(new Vector2d(stone2X + 24, getStoneY + retractY))
                                     .strafeTo(new Vector2d(stone2X + 24, getStoneY))
                                     .build()
                     );
@@ -206,8 +205,8 @@ public class BlueDepot extends LinearOpMode {
             drive.followTrajectorySync(
                     drive.trajectoryBuilder()
 //                            .splineTo(new Pose2d(10, 55, 0), new ConstantInterpolator(0))
-                            .strafeLeft(5)
-                            .lineTo(new Vector2d(10, getStoneY + 5))
+                            .strafeLeft(retractY)
+                            .lineTo(new Vector2d(deliverX, getStoneY + retractY))
                             .build()
             );
 
@@ -217,11 +216,28 @@ public class BlueDepot extends LinearOpMode {
 
             drive.followTrajectorySync(
                     drive.trajectoryBuilder()
-                    .lineTo(new Vector2d(0, getStoneY + 5))
-                    .build()
+                            .lineTo(new Vector2d(0, getStoneY + retractY))
+                            .build()
             );
 
             DONE = true;
+        }
+    }
+
+    public void getStone() throws InterruptedException {
+        switch (skyStonePosition) {
+            case 0:
+                rearGrabber.setPosition(1.0);
+                Thread.sleep(1000);
+                break;
+            case 1:
+                rearGrabber.setPosition(1.0);
+                Thread.sleep(1000);
+                break;
+            case 2:
+                frontGrabber.setPosition(0);
+                Thread.sleep(1000);
+                break;
         }
     }
 
