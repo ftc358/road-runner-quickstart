@@ -55,6 +55,8 @@ public class LocalizationTestWithCamera extends LinearOpMode {
     Servo rearGrabber;
     Servo foundationGrabber;
 
+    double foundationGrabberState;
+
     FtcDashboard dashboard = FtcDashboard.getInstance();
 
     OpenCvCamera phoneCam;
@@ -108,8 +110,16 @@ public class LocalizationTestWithCamera extends LinearOpMode {
 
             drive.update();
 
-            frontGrabber.setPosition(gamepad1.left_trigger);
+            frontGrabber.setPosition(1 - gamepad1.left_trigger);
             rearGrabber.setPosition(gamepad1.right_trigger);
+
+            if (gamepad1.left_bumper) {
+                foundationGrabberState = 0;
+            } else if (gamepad1.right_bumper) {
+                foundationGrabberState = 1;
+            }
+
+            foundationGrabber.setPosition(foundationGrabberState);
 
             Pose2d poseEstimate = drive.getPoseEstimate();
             telemetry.addData("x", poseEstimate.getX());
