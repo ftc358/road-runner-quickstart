@@ -37,30 +37,32 @@ public class BlueDepot extends LinearOpMode {
     public static double stone1X = -61;
     public static double stone2X = -67.168;
 
-    Servo frontGrabber;
-    Servo rearGrabber;
-    Servo foundationGrabber;
-
-    boolean DONE = false;
-
-    int skyStonePosition = -1;
+    public static double startX = -41.32;
+    public static double startY = 63.1;
 
     final private static int frameHeight = 320;
     final private static int frameWidth = 240;
 
-    // constants tuned with FtcDashboard
     final private static int fromBottom = 0;
     final private static int stoneHeight = 40;
+
+    boolean DONE = false;
+
+    int skyStonePosition = -1;
 
     FtcDashboard dashboard = FtcDashboard.getInstance();
 
     OpenCvCamera phoneCam;
     SkystonePipeline skystonePipeline;
 
+    Servo frontGrabber;
+    Servo rearGrabber;
+    Servo foundationGrabber;
+
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDriveREVOptimized drive = new SampleMecanumDriveREVOptimized(hardwareMap);
-        drive.setPoseEstimate(new Pose2d(-41.32, 63.1, 0));
+        drive.setPoseEstimate(new Pose2d(startX, startY, 0));
 
         frontGrabber = hardwareMap.servo.get("frontGrabber");
         rearGrabber = hardwareMap.servo.get("rearGrabber");
@@ -84,7 +86,8 @@ public class BlueDepot extends LinearOpMode {
             drive.followTrajectorySync(
                     drive.trajectoryBuilder()
 //                        .splineTo(new Pose2d(convertX(-67.168), convertY(62.690), 0), new ConstantInterpolator(Math.toRadians(0)))
-                            .lineTo((new Vector2d(-67.168, 63.1)), new ConstantInterpolator(0))
+//                            .strafeTo(new Vector2d(-67.168, 62.690))
+                            .lineTo((new Vector2d(-67.168, startY)), new ConstantInterpolator(0))
                             .build()
             );
 
@@ -102,7 +105,7 @@ public class BlueDepot extends LinearOpMode {
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
 //                                    .splineTo(new Pose2d(-70.24, 46.25, 0), new ConstantInterpolator(0))
-                                    .lineTo(new Vector2d(stone0X, 63.1))
+                                    .lineTo(new Vector2d(stone0X, startY))
 //                                    .back(1)
                                     .strafeTo(new Vector2d(stone0X, getStoneY))
 //                                    .strafeRight(13)
@@ -114,7 +117,7 @@ public class BlueDepot extends LinearOpMode {
                 case 1:
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
-                                    .lineTo(new Vector2d(stone1X, 63.1))
+                                    .lineTo(new Vector2d(stone1X, startY))
 //                                    .forward(4)
                                     .strafeTo(new Vector2d(stone1X, getStoneY))
 //                                    .strafeRight(13)
@@ -127,7 +130,7 @@ public class BlueDepot extends LinearOpMode {
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
 //                            .splineTo(new Pose2d(-67, 46.25, 0), new ConstantInterpolator(0))
-                                    .lineTo(new Vector2d(stone2X, 63.1))
+                                    .lineTo(new Vector2d(stone2X, startY))
                                     .strafeTo(new Vector2d(stone2X, getStoneY))
 //                                    .strafeRight(13)
                                     .build()
@@ -156,7 +159,7 @@ public class BlueDepot extends LinearOpMode {
                 case 0:
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
-                                    .lineTo(new Vector2d(stone0X + 24, 55))
+                                    .lineTo(new Vector2d(stone0X + 24, getStoneY + 5))
                                     .strafeTo(new Vector2d(stone0X + 24, getStoneY))
                                     .build()
                     );
@@ -168,7 +171,7 @@ public class BlueDepot extends LinearOpMode {
                 case 1:
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
-                                    .lineTo(new Vector2d(stone1X + 24, 55))
+                                    .lineTo(new Vector2d(stone1X + 24, getStoneY + 5))
                                     .strafeTo(new Vector2d(stone1X + 24, getStoneY))
                                     .build()
                     );
@@ -180,7 +183,7 @@ public class BlueDepot extends LinearOpMode {
                 case 2:
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
-                                    .lineTo(new Vector2d(stone2X + 24, 55))
+                                    .lineTo(new Vector2d(stone2X + 24, getStoneY + 5))
                                     .strafeTo(new Vector2d(stone2X + 24, getStoneY))
                                     .build()
                     );
