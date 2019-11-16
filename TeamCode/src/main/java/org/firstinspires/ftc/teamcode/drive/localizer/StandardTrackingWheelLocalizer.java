@@ -9,6 +9,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.openftc.revextensions2.ExpansionHubEx;
+import org.openftc.revextensions2.RevBulkData;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,14 +32,17 @@ import java.util.List;
  */
 @Config
 public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer {
+
     public static double TICKS_PER_REV = 2400;
     public static double LATERAL_WHEEL_RADIUS = 2; // in
     public static double FRONT_WHEEL_RADIUS = 1.5; // in
     public static double GEAR_RATIO = 1; // output (wheel) speed / input (encoder) speed
 
-    public static double LATERAL_DISTANCE = 16.75; // in; distance between the left and right wheels
+//    public static double LATERAL_DISTANCE = 16.75; // in; distance between the left and right wheels
     // we are not using it
 //    public static double FORWARD_OFFSET = 8.00; // in; offset of the lateral wheel
+
+    private ExpansionHubEx hub;
 
     private DcMotor leftEncoder, rightEncoder, frontEncoder;
 
@@ -45,6 +52,8 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
                 new Pose2d(-0.08, -8.50, 0), // right
                 new Pose2d(7.69, -0.09, Math.toRadians(90)) // front
         ));
+
+        hub = hardwareMap.get(ExpansionHubEx.class, "358-Hub-2");
 
         leftEncoder = hardwareMap.dcMotor.get("leftEncoder");
         rightEncoder = hardwareMap.dcMotor.get("rightEncoder");
@@ -63,10 +72,23 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
     @NonNull
     @Override
     public List<Double> getWheelPositions() {
-        return Arrays.asList(
-                lateralEncoderTicksToInches(leftEncoder.getCurrentPosition()),
-                lateralEncoderTicksToInches(rightEncoder.getCurrentPosition()),
-                frontEncoderTicksToInches(frontEncoder.getCurrentPosition())
-        );
+        RevBulkData bulkData = hub.getBulkInputData();
+
+        if (bulkData == null) {
+            return Arrays.asList(0.0, 0.0, 0.0, 0.0);
+        }
+
+        List<Double> wheelPositions = new ArrayList<>();
+        wheelPositions.add(lateralEncoderTicksToInches(bulkData.getMotorCurrentPosition(leftEncoder)));
+        wheelPositions.add(lateralEncoderTicksToInches(bulkData.getMotorCurrentPosition(rightEncoder)));
+        wheelPositions.add(frontEncoderTicksToInches(bulkData.getMotorCurrentPosition(frontEncoder)));
+
+        return wheelPositions;
+
+//        return Arrays.asList(
+//                lateralEncoderTicksToInches(leftEncoder.getCurrentPosition()),
+//                lateralEncoderTicksToInches(rightEncoder.getCurrentPosition()),
+//                frontEncoderTicksToInches(frontEncoder.getCurrentPosition())
+//        );
     }
 }
