@@ -39,9 +39,9 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
 @Config
 public abstract class SampleMecanumDriveBase extends MecanumDrive {
     //    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0.5, 0, 0.0098);
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(10, 0, 1.5);
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(10, 0, 0.001);
     //    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0.001, 0, 0.01);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(2, 0, 0.1);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(8, 0, 0.05);
 
 
     public enum Mode {

@@ -14,7 +14,7 @@ import java.io.IOException;
 @Autonomous(group = "drive")
 public class TrajectoryTest extends LinearOpMode {
 
-    Trajectory testTrajectory;
+//    Trajectory testTrajectory;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -22,16 +22,22 @@ public class TrajectoryTest extends LinearOpMode {
 
         drive.setPoseEstimate(new Pose2d(-48.00, 48.00, 0));
 
-        try {
-            testTrajectory = AssetsTrajectoryLoader.load("Test20191108-2");
-        } catch (IOException e) {
-            telemetry.addData("IOException", "Bad");
-        }
+//        try {
+//            testTrajectory = AssetsTrajectoryLoader.load("Test20191108-3");
+//        } catch (IOException e) {
+//            telemetry.addData("IOException", "Bad");
+//        }
 
         waitForStart();
 
         if (isStopRequested()) return;
 
-        drive.followTrajectorySync(testTrajectory);
+        drive.followTrajectorySync(
+                drive.trajectoryBuilder()
+                        .splineTo(new Pose2d(-67.168, 62.690, 0))
+                        .build()
+        );
+
+//        drive.followTrajectorySync(testTrajectory);
     }
 }
