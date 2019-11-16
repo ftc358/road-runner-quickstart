@@ -31,6 +31,8 @@ import java.util.concurrent.Executors;
 @Autonomous(group = "drive")
 public class BlueDepot extends LinearOpMode {
 
+    // configurables
+
     public static double getStoneY = 50;
 
     public static double stone0X = -69;
@@ -40,15 +42,21 @@ public class BlueDepot extends LinearOpMode {
     public static double startX = -41.32;
     public static double startY = 63.1;
 
-    final private static int frameHeight = 320;
-    final private static int frameWidth = 240;
-
-    final private static int fromBottom = 0;
-    final private static int stoneHeight = 40;
+    // states
 
     boolean DONE = false;
 
     int skyStonePosition = -1;
+
+    // consts
+
+    final private static int frameHeight = 320;
+    final private static int frameWidth = 240;
+
+    final private static int fromBottom = 20;
+    final private static int stoneHeight = 60;
+
+    // objects
 
     FtcDashboard dashboard = FtcDashboard.getInstance();
 
@@ -155,7 +163,6 @@ public class BlueDepot extends LinearOpMode {
             // get second stone
 
             switch (skyStonePosition) {
-                //TODO: the x coordinates should be 8 inches apart; test tomorrow
                 case 0:
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
