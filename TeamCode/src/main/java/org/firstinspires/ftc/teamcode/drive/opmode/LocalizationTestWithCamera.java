@@ -9,6 +9,7 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.drive.mecanum.SampleMecanumDriveREVOptimized;
@@ -50,6 +51,10 @@ public class LocalizationTestWithCamera extends LinearOpMode {
     public static int fromBottom = 20;
     public static int stoneHeight = 60;
 
+    Servo frontGrabber;
+    Servo rearGrabber;
+    Servo foundationGrabber;
+
     FtcDashboard dashboard = FtcDashboard.getInstance();
 
     OpenCvCamera phoneCam;
@@ -68,6 +73,11 @@ public class LocalizationTestWithCamera extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+        frontGrabber = hardwareMap.servo.get("frontGrabber");
+        rearGrabber = hardwareMap.servo.get("rearGrabber");
+        foundationGrabber = hardwareMap.servo.get("foundationGrabber");
+
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
         SampleMecanumDriveREVOptimized drive = new SampleMecanumDriveREVOptimized(hardwareMap);
@@ -98,13 +108,16 @@ public class LocalizationTestWithCamera extends LinearOpMode {
 
             drive.update();
 
+            frontGrabber.setPosition(gamepad1.left_trigger);
+            rearGrabber.setPosition(gamepad1.right_trigger);
+
             Pose2d poseEstimate = drive.getPoseEstimate();
             telemetry.addData("x", poseEstimate.getX());
             telemetry.addData("y", poseEstimate.getY());
             telemetry.addData("heading", poseEstimate.getHeading());
-            telemetry.update();
-
             telemetry.addData("skystonePosition", pipeline.getPosition());
+            telemetry.addData("frontGrabberPosition", frontGrabber.getPosition());
+            telemetry.addData("rearGrabberPosition", rearGrabber.getPosition());
             telemetry.update();
 
             networking.submit(submitImage);
