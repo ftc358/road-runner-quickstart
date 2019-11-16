@@ -31,8 +31,10 @@ public class TeleOp extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         frontGrabber = hardwareMap.servo.get("frontGrabber");
+        frontGrabber.setDirection(Servo.Direction.REVERSE);
         rearGrabber = hardwareMap.servo.get("rearGrabber");
         foundationGrabber = hardwareMap.servo.get("foundationGrabber");
+        capstoneFeeder = hardwareMap.servo.get("capstoneFeeder");
 
         SampleMecanumDriveREVOptimized drive = new SampleMecanumDriveREVOptimized(hardwareMap);
 
@@ -53,10 +55,10 @@ public class TeleOp extends LinearOpMode {
 //                foundationGrabberState = 1;
 //            }
 
-            frontGrabber.setPosition(1 - gamepad2.left_stick_y);
-            rearGrabber.setPosition(gamepad2.right_stick_y);
+            frontGrabber.setPosition(gamepad2.left_stick_y);
+            rearGrabber.setPosition(-gamepad2.right_stick_y);
             foundationGrabber.setPosition(gamepad2.left_trigger);
-            capstoneFeeder.setPosition(gamepad2.right_trigger);
+            capstoneFeeder.setPosition(1 - gamepad2.right_trigger);
         }
     }
 }

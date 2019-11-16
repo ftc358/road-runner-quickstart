@@ -72,23 +72,23 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
     @NonNull
     @Override
     public List<Double> getWheelPositions() {
-        RevBulkData bulkData = hub.getBulkInputData();
+//        RevBulkData bulkData = hub.getBulkInputData();
+//
+//        if (bulkData == null) {
+//            return Arrays.asList(0.0, 0.0, 0.0, 0.0);
+//        }
+//
+//        List<Double> wheelPositions = new ArrayList<>();
+//        wheelPositions.add(lateralEncoderTicksToInches(bulkData.getMotorCurrentPosition(leftEncoder)));
+//        wheelPositions.add(lateralEncoderTicksToInches(bulkData.getMotorCurrentPosition(rightEncoder)));
+//        wheelPositions.add(frontEncoderTicksToInches(bulkData.getMotorCurrentPosition(frontEncoder)));
+//
+//        return wheelPositions;
 
-        if (bulkData == null) {
-            return Arrays.asList(0.0, 0.0, 0.0, 0.0);
-        }
-
-        List<Double> wheelPositions = new ArrayList<>();
-        wheelPositions.add(lateralEncoderTicksToInches(bulkData.getMotorCurrentPosition(leftEncoder)));
-        wheelPositions.add(lateralEncoderTicksToInches(bulkData.getMotorCurrentPosition(rightEncoder)));
-        wheelPositions.add(frontEncoderTicksToInches(bulkData.getMotorCurrentPosition(frontEncoder)));
-
-        return wheelPositions;
-
-//        return Arrays.asList(
-//                lateralEncoderTicksToInches(leftEncoder.getCurrentPosition()),
-//                lateralEncoderTicksToInches(rightEncoder.getCurrentPosition()),
-//                frontEncoderTicksToInches(frontEncoder.getCurrentPosition())
-//        );
+        return Arrays.asList(
+                lateralEncoderTicksToInches(leftEncoder.getCurrentPosition()),
+                lateralEncoderTicksToInches(rightEncoder.getCurrentPosition()),
+                frontEncoderTicksToInches(frontEncoder.getCurrentPosition())
+        );
     }
 }
