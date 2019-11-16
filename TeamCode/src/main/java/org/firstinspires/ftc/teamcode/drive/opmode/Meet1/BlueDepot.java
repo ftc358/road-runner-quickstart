@@ -31,12 +31,17 @@ public class BlueDepot extends LinearOpMode {
     //TODO: tune
     public static double getStoneY = 50;
 
+    //TODO: tune
     public static double stone0X = -69;
+    //TODO: tune
     public static double stone1X = -61;
+    //TODO: tune
     public static double stone2X = -67.168;
 
+    //TODO: tune
     public static double retractY = 5;
 
+    //TODO: tune--see if farthest stone needs separate
     public static double deliverX = 10;
 
     public static double startX = -41.32;
@@ -107,8 +112,7 @@ public class BlueDepot extends LinearOpMode {
             //get first stone
 
             switch (skyStonePosition) {
-                //TODO: the x coordinates should be 8 inches apart; test tomorrow
-                //TODO: get all the stone X coordinates & getStoneY
+                // the x coordinates should be 8 inches apart
                 case 0:
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
@@ -149,7 +153,7 @@ public class BlueDepot extends LinearOpMode {
 
             releaseStone();
 
-            // get second stone
+            // get second stone; stoneX should be 24 greater than the first one
 
             switch (skyStonePosition) {
                 case 0:
