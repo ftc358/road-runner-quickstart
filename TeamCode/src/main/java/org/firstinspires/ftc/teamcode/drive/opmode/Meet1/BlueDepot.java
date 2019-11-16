@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 @Config
-@Autonomous(group = "drive")
+@Autonomous(group = "competition")
 public class BlueDepot extends LinearOpMode {
 
     // configurables

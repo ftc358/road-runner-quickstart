@@ -1,32 +1,11 @@
 package org.firstinspires.ftc.teamcode.drive.opmode.Meet1;
 
-import android.graphics.Bitmap;
-import android.util.Log;
-
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.mecanum.SampleMecanumDriveREVOptimized;
-import org.opencv.android.Utils;
-import org.opencv.core.Core;
-import org.opencv.core.CvException;
-import org.opencv.core.Mat;
-import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
-import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvInternalCamera;
-import org.openftc.easyopencv.OpenCvPipeline;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * This is a simple teleop routine for testing localization. Drive the robot around like a normal
@@ -35,16 +14,18 @@ import java.util.concurrent.Executors;
  * exercise is to ascertain whether the localizer has been configured properly (note: the pure
  * encoder localizer heading may be significantly off if the track width has not been tuned).
  */
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(group = "drive")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(group = "competition")
 public class TeleOp extends LinearOpMode {
 
     Servo frontGrabber;
     Servo rearGrabber;
     Servo foundationGrabber;
+    Servo capstoneFeeder;
 
-    double foundationGrabberState;
+//    double foundationGrabberState;
+//    double capstoneFeederState;
 
-    FtcDashboard dashboard = FtcDashboard.getInstance();
+//    FtcDashboard dashboard = FtcDashboard.getInstance();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -66,15 +47,16 @@ public class TeleOp extends LinearOpMode {
 
             drive.update();
 
-            if (gamepad1.left_bumper) {
-                foundationGrabberState = 0;
-            } else if (gamepad1.right_bumper) {
-                foundationGrabberState = 1;
-            }
+//            if (gamepad2.left_bumper) {
+//                foundationGrabberState = 0;
+//            } else if (gamepad2.right_bumper) {
+//                foundationGrabberState = 1;
+//            }
 
-            frontGrabber.setPosition(1 - gamepad1.left_trigger);
-            rearGrabber.setPosition(gamepad1.right_trigger);
-            foundationGrabber.setPosition(foundationGrabberState);
+            frontGrabber.setPosition(1 - gamepad2.left_stick_y);
+            rearGrabber.setPosition(gamepad2.right_stick_y);
+            foundationGrabber.setPosition(gamepad2.left_trigger);
+            capstoneFeeder.setPosition(gamepad2.right_trigger);
         }
     }
 }
