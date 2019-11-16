@@ -57,16 +57,6 @@ public class BlueDepot extends LinearOpMode {
     OpenCvCamera phoneCam;
     SkystonePipeline skystonePipeline;
 
-    Bitmap bmp = null;
-
-    // comment out later
-    Runnable submitImage = new Runnable() {
-        @Override
-        public void run() {
-            dashboard.sendImage(bmp);
-        }
-    };
-
     @Override
     public void runOpMode() throws InterruptedException {
         SampleMecanumDriveREVOptimized drive = new SampleMecanumDriveREVOptimized(hardwareMap);
@@ -90,6 +80,7 @@ public class BlueDepot extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive() && !DONE) {
+            // to detection
             drive.followTrajectorySync(
                     drive.trajectoryBuilder()
 //                        .splineTo(new Pose2d(convertX(-67.168), convertY(62.690), 0), new ConstantInterpolator(Math.toRadians(0)))
@@ -97,12 +88,12 @@ public class BlueDepot extends LinearOpMode {
                             .build()
             );
 
-            networking.submit(submitImage);
-
             skyStonePosition = skystonePipeline.getPosition();
 
             telemetry.addData("skyStonePosition", skyStonePosition);
             telemetry.update();
+
+            //get first stone
 
             switch (skyStonePosition) {
                 //TODO: the x coordinates should be 8 inches apart; test tomorrow
@@ -146,6 +137,8 @@ public class BlueDepot extends LinearOpMode {
                     break;
             }
 
+            // deliver first stone
+
             drive.followTrajectorySync(
                     drive.trajectoryBuilder()
 //                            .splineTo(new Pose2d(10, 55, 0), new ConstantInterpolator(0))
@@ -155,6 +148,8 @@ public class BlueDepot extends LinearOpMode {
             );
 
             releaseStone();
+
+            // get second stone
 
             switch (skyStonePosition) {
                 //TODO: the x coordinates should be 8 inches apart; test tomorrow
@@ -196,6 +191,8 @@ public class BlueDepot extends LinearOpMode {
                     break;
             }
 
+            // deliver second stone
+
             drive.followTrajectorySync(
                     drive.trajectoryBuilder()
 //                            .splineTo(new Pose2d(10, 55, 0), new ConstantInterpolator(0))
@@ -205,6 +202,8 @@ public class BlueDepot extends LinearOpMode {
             );
 
             releaseStone();
+
+            // park
 
             drive.followTrajectorySync(
                     drive.trajectoryBuilder()
