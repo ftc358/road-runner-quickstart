@@ -39,9 +39,10 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
 @Config
 public abstract class SampleMecanumDriveBase extends MecanumDrive {
     //    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0.5, 0, 0.0098);
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(10, 0, 0.001);
+    public static PIDCoefficients TRANSLATIONAL_PID_X = new PIDCoefficients(5, 0, 0);
+    public static PIDCoefficients TRANSLATIONAL_PID_Y = new PIDCoefficients(5, 0, 0);
     //    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0.001, 0, 0.01);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(8, 0, 0.05);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(5, 0, 0.05);
 
 
     public enum Mode {
@@ -79,7 +80,7 @@ public abstract class SampleMecanumDriveBase extends MecanumDrive {
         turnController.setInputBounds(0, 2 * Math.PI);
 
         constraints = new MecanumConstraints(BASE_CONSTRAINTS, TRACK_WIDTH);
-        follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID, TRANSLATIONAL_PID, HEADING_PID);
+        follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID_X, TRANSLATIONAL_PID_Y, HEADING_PID);
     }
 
     public TrajectoryBuilder trajectoryBuilder() {

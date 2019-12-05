@@ -38,7 +38,7 @@ public class DriveConstants {
     //        public static final PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(5.7,0.001,0.9);
     //    public static final PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(30, 6.5, 0.1);
 //    public static final PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(25, 10, 0.1);
-    public static final PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(3, 0.02, 0.001);
+    public static final PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(3.00, 0.0117, 0.001);
 
     /*
      * These are physical constants that can be determined from your robot (including the track
@@ -50,7 +50,7 @@ public class DriveConstants {
      */
     public static double WHEEL_RADIUS = 2.0;
     public static double GEAR_RATIO = 1.0 / 1.0; // output (wheel) speed / input (motor) speed
-    public static double TRACK_WIDTH = 14;
+    public static double TRACK_WIDTH = 14.11;
     // measured value 18.46
 
     /*
@@ -72,8 +72,8 @@ public class DriveConstants {
      * forces acceleration-limited profiling).
      */
     public static DriveConstraints BASE_CONSTRAINTS = new DriveConstraints(
-            25.0, 20.0, 50.0,
-            Math.toRadians(180.0), Math.toRadians(180.0), 0.0
+            26.0, 70.0, 0,
+            2.1, 4.2, 0.0
     );
 
 
@@ -102,7 +102,7 @@ public class DriveConstants {
         // theoretical P: 1.17
         // theoretical I: 0.0117
         // theoretical D: 0
-        // theoretical F: 11        ]\
+        // theoretical F: 11
         // positional P: 5.0
     }
 }
