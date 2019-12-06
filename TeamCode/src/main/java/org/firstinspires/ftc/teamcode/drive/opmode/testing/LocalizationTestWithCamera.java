@@ -84,7 +84,7 @@ public class LocalizationTestWithCamera extends LinearOpMode {
 
         SampleMecanumDriveREVOptimized drive = new SampleMecanumDriveREVOptimized(hardwareMap);
 
-        drive.setPoseEstimate(new Pose2d(-41.32, 63.1, 0));
+        drive.setPoseEstimate(new Pose2d(0, 0, 0));
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
                 "cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
