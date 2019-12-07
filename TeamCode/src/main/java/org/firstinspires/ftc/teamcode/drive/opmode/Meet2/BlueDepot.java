@@ -34,6 +34,8 @@ public class BlueDepot extends LinearOpMode {
 
     // configurables
 
+    // TODO: tune
+
     public static double stone0X = -21;
     public static double stone1X = -13;
     public static double stone2X = -20;
