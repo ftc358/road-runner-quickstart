@@ -38,7 +38,7 @@ public class DriveConstants {
     //        public static final PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(5.7,0.001,0.9);
     //    public static final PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(30, 6.5, 0.1);
 //    public static final PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(25, 10, 0.1);
-    public static final PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(3.00, 0.0117, 0.001);
+    public static final PIDCoefficients MOTOR_VELO_PID = new PIDCoefficients(4.00, 0.5117, 0.001);
 
     /*
      * These are physical constants that can be determined from your robot (including the track
@@ -73,7 +73,7 @@ public class DriveConstants {
      */
     public static DriveConstraints BASE_CONSTRAINTS = new DriveConstraints(
             22.0, 40.0, 0,
-            2.1, 4.2, 0.0
+            1.6, 1.6, 0.0
     );
 
 

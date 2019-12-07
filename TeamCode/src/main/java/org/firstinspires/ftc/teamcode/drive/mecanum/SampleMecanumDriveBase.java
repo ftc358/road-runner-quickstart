@@ -39,8 +39,8 @@ import static org.firstinspires.ftc.teamcode.drive.DriveConstants.kV;
 @Config
 public abstract class SampleMecanumDriveBase extends MecanumDrive {
     //    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0.5, 0, 0.0098);
-    public static PIDCoefficients TRANSLATIONAL_PID_X = new PIDCoefficients(5, 0, 0);
-    public static PIDCoefficients TRANSLATIONAL_PID_Y = new PIDCoefficients(5, 0, 0);
+    public static PIDCoefficients TRANSLATIONAL_PID_X = new PIDCoefficients(5, 0, 0.15);
+    public static PIDCoefficients TRANSLATIONAL_PID_Y = new PIDCoefficients(5, 0, 0.1);
     //    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0.001, 0, 0.01);
     public static PIDCoefficients HEADING_PID = new PIDCoefficients(5, 0, 0.05);
 
@@ -60,7 +60,7 @@ public abstract class SampleMecanumDriveBase extends MecanumDrive {
     private MotionProfile turnProfile;
     private double turnStart;
 
-    private DriveConstraints constraints;
+    public DriveConstraints constraints;
     private TrajectoryFollower follower;
 
     private List<Double> lastWheelPositions;

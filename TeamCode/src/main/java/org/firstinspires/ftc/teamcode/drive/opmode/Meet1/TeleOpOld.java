@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.drive.mecanum.SampleMecanumDriveREVOptimiz
  * encoder localizer heading may be significantly off if the track width has not been tuned).
  */
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(group = "competition")
-public class TeleOp extends LinearOpMode {
+public class TeleOpOld extends LinearOpMode {
 
     Servo frontGrabber;
     Servo rearGrabber;
@@ -48,12 +48,6 @@ public class TeleOp extends LinearOpMode {
             ));
 
             drive.update();
-
-//            if (gamepad2.left_bumper) {
-//                foundationGrabberState = 0;
-//            } else if (gamepad2.right_bumper) {
-//                foundationGrabberState = 1;
-//            }
 
             frontGrabber.setPosition(gamepad2.left_stick_y);
             rearGrabber.setPosition(-gamepad2.right_stick_y);

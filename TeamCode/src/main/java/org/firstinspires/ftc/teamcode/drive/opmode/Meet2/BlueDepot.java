@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.path.heading.ConstantInterpolator;
 import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints;
+import com.acmerobotics.roadrunner.trajectory.constraints.MecanumConstraints;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -24,6 +25,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import static org.firstinspires.ftc.teamcode.drive.DriveConstants.TRACK_WIDTH;
 
 @Config
 @Autonomous(group = "competition")
@@ -83,9 +86,11 @@ public class BlueDepot extends LinearOpMode {
     Servo rearGrabber;
     Servo foundationGrabber;
 
+    SampleMecanumDriveREVOptimized drive;
+
     @Override
     public void runOpMode() throws InterruptedException {
-        SampleMecanumDriveREVOptimized drive = new SampleMecanumDriveREVOptimized(hardwareMap);
+        drive = new SampleMecanumDriveREVOptimized(hardwareMap);
         drive.setPoseEstimate(new Pose2d(startX, startY, 0));
 
         ConstantInterpolator zeroHeadingInterp = new ConstantInterpolator(0);
@@ -292,18 +297,18 @@ public class BlueDepot extends LinearOpMode {
     }
 
     public void enterX() {
-        DriveConstants.BASE_CONSTRAINTS = new DriveConstraints(
+        drive.constraints = new MecanumConstraints(new DriveConstraints(
                 22.0, 40.0, 0,
                 2.1, 4.2, 0.0
-        );
+        ), TRACK_WIDTH);
         X = true;
     }
 
     public void enterY() {
-        DriveConstants.BASE_CONSTRAINTS = new DriveConstraints(
-                20.0, 40.0, 0,
+        drive.constraints = new MecanumConstraints(new DriveConstraints(
+                20.0, 30.0, 0,
                 2.1, 4.2, 0.0
-        );
+        ), TRACK_WIDTH);
         X = false;
     }
 
