@@ -34,11 +34,11 @@ public class BlueDepot extends LinearOpMode {
 
     // configurables
 
-    // TODO: tune
+    // TODO: tune even more
 
     public static double stone0X = -21;
     public static double stone1X = -13;
-    public static double stone2X = -20;
+    public static double stone2X = -17.5; //needs more testing
 
     public static double getStoneY = -26;
 
@@ -48,8 +48,8 @@ public class BlueDepot extends LinearOpMode {
 
     public static double retractY = 10;
 
-    public static double deliverX = 56;
-    public static double secondDeliverYOffset = 6;
+    public static double deliverX = -56;
+    public static double secondDeliverYOffset = 4; // more tesing plz not next morning?
 
     public static double startX = 0;
     public static double startY = 0;
@@ -57,7 +57,7 @@ public class BlueDepot extends LinearOpMode {
     public static double detectX = -17;
     public static double detectY = -12;
 
-    public static double parkX = 38;
+    public static double parkX = -38;
 
     // states
 
