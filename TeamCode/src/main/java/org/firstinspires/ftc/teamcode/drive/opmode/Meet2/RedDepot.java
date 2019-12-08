@@ -35,8 +35,8 @@ public class RedDepot extends LinearOpMode {
 
     // configurables
 
-    public static double stone0X = -18.5;
-    public static double stone1X = -10.5;
+    public static double stone0X = -18;
+    public static double stone1X = -11;
     public static double stone2X = -19;
 
     public static double getStoneY = 27;
@@ -142,7 +142,7 @@ public class RedDepot extends LinearOpMode {
                 case 0:
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
-                                    .back(stone0X - detectX)
+                                    .lineTo(new Vector2d(stone0X, detectY), backHeadingInterp)
 //                                    .lineTo(new Vector2d(stone0X, detectY), backHeadingInterp)
                                     .build()
                     );
@@ -158,7 +158,7 @@ public class RedDepot extends LinearOpMode {
                 case 1:
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
-                                    .back(stone1X - detectX)
+                                    .lineTo(new Vector2d(stone1X, detectY), backHeadingInterp)
 //                                    .lineTo(new Vector2d(stone1X, detectY), backHeadingInterp)
                                     .build()
                     );
@@ -174,7 +174,7 @@ public class RedDepot extends LinearOpMode {
                 case 2:
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
-                                    .back(stone2X - detectX)
+                                    .lineTo(new Vector2d(stone2X, detectY), backHeadingInterp)
 //                                    .lineTo(new Vector2d(stone2X, detectY), backHeadingInterp)
                                     .build()
                     );

@@ -78,10 +78,10 @@ public class TeleOp extends LinearOpMode {
 
             drive.update();
 
-            frontGrabber.setPosition(gamepad2.left_stick_y);
+            frontGrabber.setPosition(-gamepad2.left_stick_y);
             rearGrabber.setPosition(-gamepad2.right_stick_y);
             foundationGrabber.setPosition(gamepad2.left_trigger);
-            capstoneFeeder.setPosition(1 - gamepad2.right_trigger);
+            capstoneFeeder.setPosition(0.95 - gamepad2.right_trigger);
         }
     }
 
