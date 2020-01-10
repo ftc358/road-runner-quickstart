@@ -49,8 +49,8 @@ public class StandardTrackingWheelLocalizer extends ThreeTrackingWheelLocalizer 
     public StandardTrackingWheelLocalizer(HardwareMap hardwareMap) {
         super(Arrays.asList(
                 new Pose2d(-0.08, 8.52, 0), // left
-                new Pose2d(-0.08, -8.50, 0), // right
-                new Pose2d(7.60, -0.09, Math.toRadians(90)) // front
+                new Pose2d(-0.08, -8.52, 0), // right
+                new Pose2d(7.62, -0.09, Math.toRadians(90)) // front
         ));
 
         hub = hardwareMap.get(ExpansionHubEx.class, "Expansion Hub 3");

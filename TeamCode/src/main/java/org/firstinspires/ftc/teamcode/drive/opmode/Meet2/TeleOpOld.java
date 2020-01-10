@@ -19,8 +19,9 @@ import static org.firstinspires.ftc.teamcode.drive.opmode.testing.FieldVelocityT
  * exercise is to ascertain whether the localizer has been configured properly (note: the pure
  * encoder localizer heading may be significantly off if the track width has not been tuned).
  */
+@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(group = "competition")
-public class TeleOp extends LinearOpMode {
+public class TeleOpOld extends LinearOpMode {
 
     Servo frontGrabber;
     Servo rearGrabber;
