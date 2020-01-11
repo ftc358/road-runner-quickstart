@@ -44,7 +44,7 @@ public class RedDepot extends LinearOpMode {
     public static double stone1Y = 30;
     public static double stone2Y = 30;
 
-    public static double retractY = -14;
+    public static double retractY = -15;
 
     public static double deliverX = 56;
     public static double secondDeliverYOffset = -4;
@@ -60,8 +60,6 @@ public class RedDepot extends LinearOpMode {
     // states
 
     boolean DONE = false;
-
-    boolean X = true;
 
     int delivery = 0;
 
@@ -299,16 +297,16 @@ public class RedDepot extends LinearOpMode {
 
     public void getStone() throws InterruptedException {
         grabberHand.setPosition(0);
+        Thread.sleep(1500);
+        grabberWrist.setPosition(0.8);
         Thread.sleep(1000);
-        grabberWrist.setPosition(0.7);
     }
 
     public void releaseStone() throws InterruptedException {
-        // TODO: implement
         grabberWrist.setPosition(0.5);
         grabberHand.setPosition(1);
         Thread.sleep(500);
-        grabberWrist.setPosition(0.7);
+        grabberWrist.setPosition(0.8);
     }
 
     public class SkystonePipeline extends OpenCvPipeline {
