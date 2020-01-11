@@ -84,9 +84,9 @@ public class BlueDepot extends LinearOpMode {
     OpenCvCamera phoneCam;
     SkystonePipeline skystonePipeline;
 
-    Servo frontGrabber;
-    Servo rearGrabber;
     Servo foundationGrabber;
+    Servo grabberWrist;
+    Servo grabberHand;
 
     SampleMecanumDriveREVOptimized drive;
 
@@ -97,9 +97,12 @@ public class BlueDepot extends LinearOpMode {
 
         ConstantInterpolator zeroHeadingInterp = new ConstantInterpolator(0);
 
-        frontGrabber = hardwareMap.servo.get("frontGrabber");
-        rearGrabber = hardwareMap.servo.get("rearGrabber");
+        grabberWrist = hardwareMap.servo.get("grabberWrist");
+        grabberHand = hardwareMap.servo.get("grabberHand");
         foundationGrabber = hardwareMap.servo.get("foundationGrabber");
+
+        grabberWrist.setPosition(0.7);
+        grabberHand.setPosition(0);
 
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 

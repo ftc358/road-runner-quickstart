@@ -51,9 +51,9 @@ public class LocalizationTestWithCamera extends LinearOpMode {
     public static int fromBottom = 20;
     public static int stoneHeight = 60;
 
-    Servo frontGrabber;
-    Servo rearGrabber;
     Servo foundationGrabber;
+    Servo grabberWrist;
+    Servo grabberHand;
 
     double foundationGrabberState;
 
@@ -76,9 +76,12 @@ public class LocalizationTestWithCamera extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        frontGrabber = hardwareMap.servo.get("frontGrabber");
-        rearGrabber = hardwareMap.servo.get("rearGrabber");
+        grabberWrist = hardwareMap.servo.get("grabberWrist");
+        grabberHand = hardwareMap.servo.get("grabberHand");
         foundationGrabber = hardwareMap.servo.get("foundationGrabber");
+
+        grabberWrist.setPosition(0.7);
+        grabberHand.setPosition(0);
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
@@ -110,9 +113,6 @@ public class LocalizationTestWithCamera extends LinearOpMode {
 
             drive.update();
 
-            frontGrabber.setPosition(1 - gamepad1.left_trigger);
-            rearGrabber.setPosition(gamepad1.right_trigger);
-
             if (gamepad1.left_bumper) {
                 foundationGrabberState = 0;
             } else if (gamepad1.right_bumper) {
@@ -126,8 +126,6 @@ public class LocalizationTestWithCamera extends LinearOpMode {
             telemetry.addData("y", poseEstimate.getY());
             telemetry.addData("heading", poseEstimate.getHeading());
             telemetry.addData("skystonePosition", pipeline.getPosition());
-            telemetry.addData("frontGrabberPosition", frontGrabber.getPosition());
-            telemetry.addData("rearGrabberPosition", rearGrabber.getPosition());
             telemetry.update();
 
             networking.submit(submitImage);
