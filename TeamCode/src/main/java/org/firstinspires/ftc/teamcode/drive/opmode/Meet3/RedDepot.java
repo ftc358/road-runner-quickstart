@@ -6,10 +6,7 @@ import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.path.heading.ConstantInterpolator;
-import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints;
-import com.acmerobotics.roadrunner.trajectory.constraints.MecanumConstraints;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -26,8 +23,6 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static org.firstinspires.ftc.teamcode.drive.DriveConstants.TRACK_WIDTH;
-
 @Config
 @Autonomous(group = "competition")
 public class RedDepot extends LinearOpMode {
@@ -36,15 +31,11 @@ public class RedDepot extends LinearOpMode {
 
     public static double stone0X = -4;
     public static double stone1X = -12;
-    public static double stone2X = -19;
+    public static double stone2X = -20;
 
-    public static double getStoneY = 27;
+    public static double getStoneY = 29;
 
-    public static double stone0Y = 30;
-    public static double stone1Y = 30;
-    public static double stone2Y = 30;
-
-    public static double retractY = -15;
+    public static double retractY = -14;
 
     public static double deliverX = 56;
     public static double secondDeliverYOffset = -4;
@@ -97,9 +88,6 @@ public class RedDepot extends LinearOpMode {
         grabberHand = hardwareMap.servo.get("grabberHand");
         foundationGrabber = hardwareMap.servo.get("foundationGrabber");
 
-        grabberWrist.setPosition(0.8);
-        grabberHand.setPosition(0);
-
         telemetry = new MultipleTelemetry(telemetry, dashboard.getTelemetry());
 
         phoneCam = new OpenCvInternalCamera(OpenCvInternalCamera.CameraDirection.BACK);
@@ -112,6 +100,8 @@ public class RedDepot extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive() && !DONE) {
+
+            lowerArm();
 
             // to detection
             drive.followTrajectorySync(
@@ -141,13 +131,11 @@ public class RedDepot extends LinearOpMode {
 //                                    .lineTo(new Vector2d(stone0X, detectY), backHeadingInterp)
                                     .build()
                     );
-                    lowerArm();
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
-                                    .strafeTo(new Vector2d(stone0X, stone0Y))
+                                    .strafeTo(new Vector2d(stone0X, getStoneY))
                                     .build()
                     );
-                    getStoneY = stone0Y;
                     getStone();
                     break;
                 case 1:
@@ -157,13 +145,11 @@ public class RedDepot extends LinearOpMode {
 //                                    .lineTo(new Vector2d(stone1X, detectY), backHeadingInterp)
                                     .build()
                     );
-                    lowerArm();
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
-                                    .strafeTo(new Vector2d(stone1X, stone1Y))
+                                    .strafeTo(new Vector2d(stone1X, getStoneY))
                                     .build()
                     );
-                    getStoneY = stone1Y;
                     getStone();
                     break;
                 case 2:
@@ -173,13 +159,11 @@ public class RedDepot extends LinearOpMode {
 //                                    .lineTo(new Vector2d(stone2X, detectY), backHeadingInterp)
                                     .build()
                     );
-                    lowerArm();
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
-                                    .strafeTo(new Vector2d(stone2X, stone2Y))
+                                    .strafeTo(new Vector2d(stone2X, getStoneY))
                                     .build()
                     );
-                    getStoneY = stone2Y;
                     getStone();
                     break;
             }
@@ -210,7 +194,6 @@ public class RedDepot extends LinearOpMode {
                                     .lineTo(new Vector2d(stone0X + 24, getStoneY + retractY), backHeadingInterp)
                                     .build()
                     );
-                    lowerArm();
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
                                     .strafeTo(new Vector2d(stone0X + 24, getStoneY))
@@ -226,7 +209,6 @@ public class RedDepot extends LinearOpMode {
                                     .lineTo(new Vector2d(stone1X + 24, getStoneY + retractY), backHeadingInterp)
                                     .build()
                     );
-                    lowerArm();
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
                                     .strafeTo(new Vector2d(stone1X + 24, getStoneY))
@@ -242,7 +224,6 @@ public class RedDepot extends LinearOpMode {
                                     .lineTo(new Vector2d(stone2X + 24, getStoneY + retractY), backHeadingInterp)
                                     .build()
                     );
-                    lowerArm();
                     drive.followTrajectorySync(
                             drive.trajectoryBuilder()
                                     .strafeTo(new Vector2d(stone2X + 24, getStoneY))
@@ -271,11 +252,13 @@ public class RedDepot extends LinearOpMode {
             delivery = 2;
             releaseStone();
 
+            raiseArm();
+
             // park
 
             drive.followTrajectorySync(
                     drive.trajectoryBuilder()
-                            .lineTo(new Vector2d(parkX, getStoneY + retractY + secondDeliverYOffset), backHeadingInterp)
+                            .lineTo(new Vector2d(parkX, getStoneY + retractY + secondDeliverYOffset - 4), backHeadingInterp)
                             .build()
             );
 
@@ -297,16 +280,22 @@ public class RedDepot extends LinearOpMode {
 
     public void getStone() throws InterruptedException {
         grabberHand.setPosition(0);
-        Thread.sleep(1500);
-        grabberWrist.setPosition(0.8);
         Thread.sleep(1000);
+//        grabberWrist.setPosition(0.8);
+//        Thread.sleep(1000);
     }
 
     public void releaseStone() throws InterruptedException {
-        grabberWrist.setPosition(0.5);
+//        grabberWrist.setPosition(0.5);
         grabberHand.setPosition(1);
         Thread.sleep(500);
-        grabberWrist.setPosition(0.8);
+//        grabberWrist.setPosition(0.8);
+    }
+
+    public void raiseArm() throws InterruptedException {
+        grabberHand.setPosition(0);
+        grabberWrist.setPosition(1);
+        Thread.sleep(1000);
     }
 
     public class SkystonePipeline extends OpenCvPipeline {
