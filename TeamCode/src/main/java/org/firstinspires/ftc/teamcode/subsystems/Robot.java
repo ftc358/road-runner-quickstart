@@ -12,12 +12,8 @@ import com.qualcomm.robotcore.util.RobotLog;
 import com.qualcomm.robotcore.util.ThreadPool;
 
 import org.firstinspires.ftc.robotcore.internal.opmode.OpModeManagerImpl;
-import org.firstinspires.ftc.teamcode.util.CSVWriter;
-import org.firstinspires.ftc.teamcode.util.LoggingUtil;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -31,11 +27,12 @@ public class Robot implements OpModeManagerNotifier.Notifications, GlobalWarning
 
     public FtcDashboard dashboard;
 
+    public FoundationGrabber foundationGrabber;
+    public CapstoneFeeder capstoneFeeder;
+
     private List<Subsystem> subsystems;
     private List<Subsystem> subsystemsWithProblems;
     private List<CountDownLatch> cycleLatches;
-    private Map<Subsystem, CSVWriter> subsystemLogs;
-    private CSVWriter robotLog;
     private OpModeManagerImpl opModeManager;
     private ExecutorService subsystemUpdateExecutor, telemetryUpdateExecutor;
     private BlockingQueue<TelemetryPacket> telemetryPacketQueue;
@@ -57,9 +54,6 @@ public class Robot implements OpModeManagerNotifier.Notifications, GlobalWarning
                     if (subsystem == null) continue;
                     try {
                         Map<String, Object> telemetry = subsystem.update(telemetryPacket.fieldOverlay());
-                        CSVWriter subsystemLog = subsystemLogs.get(subsystem);
-                        subsystemLog.putAll(telemetry);
-                        subsystemLog.write();
                         telemetryPacket.putAll(telemetry);
                         synchronized (subsystemsWithProblems) {
                             if (subsystemsWithProblems.contains(subsystem)) {
@@ -80,8 +74,6 @@ public class Robot implements OpModeManagerNotifier.Notifications, GlobalWarning
                     listener.onPostUpdate();
                 }
                 double postSubsystemUpdateTimestamp = System.nanoTime() / Math.pow(10, 9);
-                robotLog.put("subsystemUpdateTime", postSubsystemUpdateTimestamp - startTimestamp);
-                robotLog.write();
                 while (telemetryPacketQueue.remainingCapacity() == 0) {
                     Thread.sleep(1);
                 }
@@ -110,10 +102,6 @@ public class Robot implements OpModeManagerNotifier.Notifications, GlobalWarning
                 TelemetryPacket packet = telemetryPacketQueue.take();
                 dashboard.sendTelemetryPacket(packet);
 
-                for (CSVWriter log : subsystemLogs.values()) {
-                    log.flush();
-                }
-                robotLog.flush();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -131,7 +119,20 @@ public class Robot implements OpModeManagerNotifier.Notifications, GlobalWarning
 //        robotLog = new CSVWriter(new File(logRoot, "Robot.csv"));
 
         subsystems = new ArrayList<>();
-        subsystemLogs = new HashMap<>();
+
+        try {
+            foundationGrabber = new FoundationGrabber(opMode.hardwareMap);
+            subsystems.add(foundationGrabber);
+        } catch (IllegalArgumentException e) {
+            Log.w(TAG, "skipping foundation grabber");
+        }
+
+        try {
+            capstoneFeeder = new CapstoneFeeder(opMode.hardwareMap);
+            subsystems.add(capstoneFeeder);
+        } catch (IllegalArgumentException e) {
+            Log.w(TAG, "skipping capstone feeder");
+        }
 
         Activity activity = (Activity) opMode.hardwareMap.appContext;
         opModeManager = OpModeManagerImpl.getOpModeManagerOfActivity(activity);
